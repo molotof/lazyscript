@@ -1,20 +1,26 @@
 #!/bin/bash
 
 str=''
+cmds=(nmap wpscan)
 
-function main
+main()
 {
+        echo ""
+        echo ""
         echo "Welcome to lazyscript!"
-        echo "--help: type this command to show help menu"
+        echo "by @porthunter"
+        echo ""
+        echo "Enter command or type --help"
+        echo "Available commands: ${cmds[@]}"
 }
 
-function next 
+next() 
 {
 	echo "Enter command..."
 	read str
 	if [[ $str != '' ]]
 	then
-	    if [[ $str == '--nmap' ]]
+	    if [[ $str == ${cmds[0]} ]]
 	        then
 	        	nmap_mod
 	    elif [[ $str == '--help' ]]
@@ -26,47 +32,61 @@ function next
 	fi
 }
 
-function help_mod
+help_mod()
 {
+	echo ""
 	echo "LAZYSCRIPT HELP"
 	echo "    LAZYSCRIPT COMMANDS"
-	echo "        --nmap: run nmap scan on a specified domain or IP"
-	echo "        --wpscan: run wpscan"
+	echo "        ${cmds[0]}: run nmap scan on a specified domain or IP"
+	echo "        ${cmds[1]}: run wpscan"
 	echo "        --help: display this menu"
 	next
 }
-function nmap_mod 
+nmap_mod() 
 {
 		echo "Enter target..."
      	read domain
         nmap -sV -oN $domain -p 80 $domain
+        clear
         echo "Analyzing nmap scan..."
 		echo -n "What service are you looking for: "
 		read serv
+		clear
 		echo "Looking for $serv"
 		grep "open  $serv" $domain
-		echo "Website appears to be running Wordpress, launching wpscan..."
+		echo ""
+		echo "Website appears to be running Wordpress"
 		echo "Do you want to run wpscan? (y/n)"
 		read answer
+		clear
 		if [[ $answer == 'y' ]]
         then
-        	wpscan_mod
+        	wpscan_mod $domain
         else
         	next
 		fi
 }
-function wpscan_mod
+
+# WPSCAN MODULE
+# Launch WP SCAN against identfied Wordpress installs
+wpscan_mod()
 {
 	echo "Scanning, please be patient, this may take some time."
 	if [ -d "wpscan" ]
 	then
 		echo "Directory wpscan exists. Continuing..."
+		continue_wpscan $@
 	else
 		echo "Error: Directory wpscan does not exists, will now create directory."
 		mkdir wpscan
+		continue_wpscan $@
 	fi
-	/opt/wpscan/wpscan.rb -u $domain
+}
+continue_wpscan()
+{
+	/opt/wpscan/wpscan.rb -u $@
 	echo "Finished wp scan..."
+	clear
 	next
 }
 
@@ -75,7 +95,7 @@ read str
 
 if [[ $str != '' ]]
 then
-    if [[ $str == '--nmap' ]]
+    if [[ $str == ${cmds[0]} ]]
         then
         	nmap_mod
     elif [[ $str == '--help' ]]
