@@ -23,11 +23,15 @@ next()
 	    if [[ $str == ${cmds[0]} ]]
 	        then
 	        	nmap_mod
+	    elif [[ $str == ${cmds[1]} ]]
+	        then
+	        	wpscan_mod
 	    elif [[ $str == '--help' ]]
 	        then
 	        	help_mod
 	    else
 	        	echo "Not a valid option" 
+	        	next
 		fi
 	fi
 }
@@ -75,11 +79,17 @@ wpscan_mod()
 	if [ -d "wpscan" ]
 	then
 		echo "Directory wpscan exists. Continuing..."
-		continue_wpscan $@
 	else
 		echo "Error: Directory wpscan does not exists, will now create directory."
 		mkdir wpscan
-		continue_wpscan $@
+	fi
+	if [[ $@ == '' ]]
+        then
+        	echo "Enter domain:"
+        	read domain
+        	continue_wpscan $domain
+        else
+			continue_wpscan $@
 	fi
 }
 continue_wpscan()
@@ -95,13 +105,17 @@ read str
 
 if [[ $str != '' ]]
 then
-    if [[ $str == ${cmds[0]} ]]
-        then
-        	nmap_mod
-    elif [[ $str == '--help' ]]
-        then
-        	help_mod
-    else
-        	echo "Not a valid option" 
+	if [[ $str == ${cmds[0]} ]]
+	    then
+	        nmap_mod
+	elif [[ $str == ${cmds[1]} ]]
+	    then
+	       	wpscan_mod
+	elif [[ $str == '--help' ]]
+	    then
+	        help_mod
+	else
+	        echo "Not a valid option" 
+	        next
 	fi
 fi
