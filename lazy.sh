@@ -1,25 +1,26 @@
 #!/bin/bash
 
 str=''
-cmds=(nmap wpscan --help)
+cmds=(nmap wpscan)
 
 main()
 {
-        echo ""
+        echo #Newline
         echo "║║╔║║╔╗ ║"
 		echo "╠╣╠║║║║ ║"
 		echo "║║╚╚╚╚╝ O"
-        echo ""
-        echo "Welcome to lazyscript!"
-        echo "by @porthunter"
-        echo ""
-        echo "Enter command or type --help"
-        echo "Available commands: ${cmds[@]}"
+        echo #Newline
+        echo -e "\e[92mWelcome to lazyscript!"
+        echo -e "\e[0mby @porthunter"
+        echo #Newline
+        echo -e "Enter command or type \e[5m--help"
+        echo -e "\e[0mAvailable commands: ${cmds[@]}"
 }
 
 next() 
 {
-	echo "Enter command or type --help"
+	echo -e "Enter command or type \e[5m--help"
+	echo -e "\e[0m"
 	read str
 	if [[ $str != '' ]]
 	then
@@ -33,11 +34,11 @@ next()
 	        then
 	        	help_mod
 	    else
-	    		echo ""
+	    		echo #Newline
 	    		echo "████▌▄▌▄▐▐▌█████"
 				echo "████▌▄▌▄▐▐▌▀████"
 	        	echo "Not a valid option"
-	        	echo ""
+	        	echo #Newline
 	        	next
 		fi
 	fi
@@ -57,12 +58,12 @@ nmap_mod()
 {
 		echo "Enter target..."
      	read domain
-     	echo ""
+     	echo #Newline
      	echo "╠╬╬╬╣"
 		echo "╠╬╬╬╣ YO, WARNING! MISUSE OF THIS TOOL"
 		echo "╠╬╬╬╣ CAN LAND YOU IN JAIL!!"
 		echo "╚╩╩╩╝"
-		echo ""
+		echo #Newline
         nmap -sV -oN $domain -p 80 $domain
         clear
         echo "Analyzing nmap scan..."
@@ -71,7 +72,7 @@ nmap_mod()
 		clear
 		echo "Looking for $serv"
 		grep "open  $serv" $domain
-		echo ""
+		echo #Newline
 		echo "Website appears to be running Wordpress"
 		echo "Do you want to run wpscan? (y/n)"
 		read answer
@@ -128,11 +129,11 @@ then
 	    then
 	        help_mod
 	else
-			echo ""
+			echo #Newline
 			echo "████▌▄▌▄▐▐▌█████"
 			echo "████▌▄▌▄▐▐▌▀████"
 	        echo "Not a valid option"
-	        echo "" 
+	        echo #Newline
 	        next
 	fi
 fi
