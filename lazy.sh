@@ -1,11 +1,14 @@
 #!/bin/bash
 
 str=''
-cmds=(nmap wpscan)
+cmds=(nmap wpscan --help)
 
 main()
 {
         echo ""
+        echo "║║╔║║╔╗ ║"
+		echo "╠╣╠║║║║ ║"
+		echo "║║╚╚╚╚╝ O"
         echo ""
         echo "Welcome to lazyscript!"
         echo "by @porthunter"
@@ -16,7 +19,7 @@ main()
 
 next() 
 {
-	echo "Enter command..."
+	echo "Enter command or type --help"
 	read str
 	if [[ $str != '' ]]
 	then
@@ -30,7 +33,11 @@ next()
 	        then
 	        	help_mod
 	    else
-	        	echo "Not a valid option" 
+	    		echo ""
+	    		echo "████▌▄▌▄▐▐▌█████"
+				echo "████▌▄▌▄▐▐▌▀████"
+	        	echo "Not a valid option"
+	        	echo ""
 	        	next
 		fi
 	fi
@@ -50,6 +57,12 @@ nmap_mod()
 {
 		echo "Enter target..."
      	read domain
+     	echo ""
+     	echo "╠╬╬╬╣"
+		echo "╠╬╬╬╣ YO, WARNING! MISUSE OF THIS TOOL"
+		echo "╠╬╬╬╣ CAN LAND YOU IN JAIL!!"
+		echo "╚╩╩╩╝"
+		echo ""
         nmap -sV -oN $domain -p 80 $domain
         clear
         echo "Analyzing nmap scan..."
@@ -115,7 +128,11 @@ then
 	    then
 	        help_mod
 	else
-	        echo "Not a valid option" 
+			echo ""
+			echo "████▌▄▌▄▐▐▌█████"
+			echo "████▌▄▌▄▐▐▌▀████"
+	        echo "Not a valid option"
+	        echo "" 
 	        next
 	fi
 fi
