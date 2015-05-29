@@ -6,21 +6,21 @@ cmds=(nmap wpscan)
 main()
 {
         echo #Newline
-        echo "║║╔║║╔╗ ║"
+        echo -e "\e[34m║║╔║║╔╗ ║"
 		echo "╠╣╠║║║║ ║"
 		echo "║║╚╚╚╚╝ O"
+		echo -e "\e[0m"
         echo #Newline
-        echo -e "\e[92mWelcome to lazyscript!"
+        echo -e "Welcome to \e[31mLAZYSCRIPT!"
         echo -e "\e[0mby @porthunter"
         echo #Newline
-        echo -e "Enter command or type \e[5m--help"
-        echo -e "\e[0mAvailable commands: ${cmds[@]}"
+        echo -e "[i] Enter command or type --help"
+        echo -e "[i] Available commands: ${cmds[@]}"
 }
 
 next() 
 {
-	echo -e "Enter command or type \e[5m--help"
-	echo -e "\e[0m"
+	echo -e "[i] Enter command or type --help"
 	read str
 	if [[ $str != '' ]]
 	then
@@ -37,7 +37,7 @@ next()
 	    		echo #Newline
 	    		echo "████▌▄▌▄▐▐▌█████"
 				echo "████▌▄▌▄▐▐▌▀████"
-	        	echo "Not a valid option"
+	        	echo "[!] Not a valid option"
 	        	echo #Newline
 	        	next
 		fi
@@ -132,7 +132,7 @@ then
 			echo #Newline
 			echo "████▌▄▌▄▐▐▌█████"
 			echo "████▌▄▌▄▐▐▌▀████"
-	        echo "Not a valid option"
+	        echo "[!] Not a valid option"
 	        echo #Newline
 	        next
 	fi
