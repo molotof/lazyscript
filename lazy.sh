@@ -6,14 +6,14 @@ cmds=(whois dnsrecon harvester nmap wpscan)
 init()
 {
         echo #Newline
-        echo -e "\e[34m║║╔║║╔╗ ║"
-		echo "╠╣╠║║║║ ║"
-		echo "║║╚╚╚╚╝ O"
-		echo -e "\e[0m"
-        echo #Newline
         echo -e "Welcome to \e[31mLAZYSCRIPT!"
         echo -e "\e[0mby @porthunter"
         echo #Newline
+     	echo "╠╬╬╬╣"
+		echo "╠╬╬╬╣ WARNING! MISUSE OF THIS SCRIPT AND THE TOOLS"
+		echo "╠╬╬╬╣ INCLUDED CAN LAND YOU IN JAIL!!"
+		echo "╚╩╩╩╝"
+		echo #Newline
         
 }
 run() 
@@ -21,7 +21,7 @@ run()
 	echo -e "[i] Enter command or type --help"
     echo -e "[i] Available commands: ${cmds[@]}"
 	read str
-	nav() $str	
+	nav $str	
 }
 help_mod()
 {
@@ -31,7 +31,7 @@ help_mod()
 	echo "        ${cmds[0]}: run nmap scan on a specified domain or IP"
 	echo "        ${cmds[1]}: run wpscan"
 	echo "        --help: display this menu"
-	next
+	run
 }
 
 whois_mod()
@@ -44,7 +44,9 @@ dnsrecon_mod()
 {
 	echo "Enter target..."
     read domain
-    dnsrecon -d $domain -t brt
+    ./dnsrecon.py -d $domain -t brt > domains.txt
+    cat domains.txt
+    run
 }
 harvester_mod()
 {
@@ -56,12 +58,6 @@ nmap_mod()
 {
 		echo "Enter target..."
      	read domain
-     	echo #Newline
-     	echo "╠╬╬╬╣"
-		echo "╠╬╬╬╣ YO, WARNING! MISUSE OF THIS TOOL"
-		echo "╠╬╬╬╣ CAN LAND YOU IN JAIL!!"
-		echo "╚╩╩╩╝"
-		echo #Newline
         nmap -sV -oN $domain -p 80 $domain
         clear
         echo "Analyzing nmap scan..."
@@ -79,7 +75,7 @@ nmap_mod()
         then
         	wpscan_mod $domain
         else
-        	next
+        	run
 		fi
 }
 
@@ -109,7 +105,7 @@ continue_wpscan()
 	/opt/wpscan/wpscan.rb -u $@
 	echo "Finished wp scan..."
 	clear
-	next
+	run
 }
 
 nav()
@@ -119,16 +115,16 @@ nav()
 	then
 	    if [[ $@ == ${cmds[0]} ]]
 	        then
-	        	whois
+	        	whois_mod
 	    elif [[ $@ == ${cmds[1]} ]]
 	        then
-	        	dnsrecon
+	        	dnsrecon_mod
 	    elif [[ $@ == ${cmds[2]} ]]
 	        then
-	        	harvester
+	        	harvester_mod
 	    elif [[ $@ == ${cmds[3]} ]]
 	        then
-	        	nmap
+	        	nmap_mod
 	    elif [[ $@ == ${cmds[4]} ]]
 	        then
 	        	wpscan_mod
@@ -141,7 +137,7 @@ nav()
 				echo "████▌▄▌▄▐▐▌▀████"
 	        	echo "[!] Not a valid option"
 	        	echo #Newline
-	        	next
+	        	run
 		fi
 	fi
 }
