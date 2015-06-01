@@ -1,9 +1,9 @@
 #!/bin/bash
 
 str=''
-cmds=(nmap wpscan)
+cmds=(whois dnsrecon harvester nmap wpscan)
 
-main()
+init()
 {
         echo #Newline
         echo -e "\e[34m║║╔║║╔╗ ║"
@@ -14,36 +14,15 @@ main()
         echo -e "Welcome to \e[31mLAZYSCRIPT!"
         echo -e "\e[0mby @porthunter"
         echo #Newline
-        echo -e "[i] Enter command or type --help"
-        echo -e "[i] Available commands: ${cmds[@]}"
+        
 }
-
-next() 
+run() 
 {
 	echo -e "[i] Enter command or type --help"
+    echo -e "[i] Available commands: ${cmds[@]}"
 	read str
-	if [[ $str != '' ]]
-	then
-	    if [[ $str == ${cmds[0]} ]]
-	        then
-	        	nmap_mod
-	    elif [[ $str == ${cmds[1]} ]]
-	        then
-	        	wpscan_mod
-	    elif [[ $str == '--help' ]]
-	        then
-	        	help_mod
-	    else
-	    		echo #Newline
-	    		echo "████▌▄▌▄▐▐▌█████"
-				echo "████▌▄▌▄▐▐▌▀████"
-	        	echo "[!] Not a valid option"
-	        	echo #Newline
-	        	next
-		fi
-	fi
+	nav() $str	
 }
-
 help_mod()
 {
 	echo ""
@@ -53,6 +32,25 @@ help_mod()
 	echo "        ${cmds[1]}: run wpscan"
 	echo "        --help: display this menu"
 	next
+}
+
+whois_mod()
+{
+	echo "Enter target..."
+    read domain
+    whois $domin
+}
+dnsrecon_mod()
+{
+	echo "Enter target..."
+    read domain
+    dnsrecon -d $domain -t brt
+}
+harvester_mod()
+{
+	echo "Enter target..."
+    read domain
+    theharvester -d $domain -b all
 }
 nmap_mod() 
 {
@@ -114,26 +112,39 @@ continue_wpscan()
 	next
 }
 
-main
-read str
+nav()
+{
 
-if [[ $str != '' ]]
-then
-	if [[ $str == ${cmds[0]} ]]
-	    then
-	        nmap_mod
-	elif [[ $str == ${cmds[1]} ]]
-	    then
-	       	wpscan_mod
-	elif [[ $str == '--help' ]]
-	    then
-	        help_mod
-	else
-			echo #Newline
-			echo "████▌▄▌▄▐▐▌█████"
-			echo "████▌▄▌▄▐▐▌▀████"
-	        echo "[!] Not a valid option"
-	        echo #Newline
-	        next
+	if [[ $@ != '' ]]
+	then
+	    if [[ $@ == ${cmds[0]} ]]
+	        then
+	        	whois
+	    elif [[ $@ == ${cmds[1]} ]]
+	        then
+	        	dnsrecon
+	    elif [[ $@ == ${cmds[2]} ]]
+	        then
+	        	harvester
+	    elif [[ $@ == ${cmds[3]} ]]
+	        then
+	        	nmap
+	    elif [[ $@ == ${cmds[4]} ]]
+	        then
+	        	wpscan_mod
+	    elif [[ $@ == '--help' ]]
+	        then
+	        	help_mod
+	    else
+	    		echo #Newline
+	    		echo "████▌▄▌▄▐▐▌█████"
+				echo "████▌▄▌▄▐▐▌▀████"
+	        	echo "[!] Not a valid option"
+	        	echo #Newline
+	        	next
+		fi
 	fi
-fi
+}
+
+init
+run
