@@ -54,13 +54,21 @@ menu_mod()
         run
 	fi
 }
+
+cmds=(menu whois dnsrecon harvester nmap wpscan cupp)
+
 help_mod()
 {
 	echo ""
 	echo "LAZYSCRIPT HELP"
 	echo "    LAZYSCRIPT COMMANDS"
-	echo "        ${cmds[0]}: run nmap scan on a specified domain or IP"
-	echo "        ${cmds[1]}: run wpscan"
+	echo "        ${cmds[0]}: show the main menu"
+	echo "        ${cmds[1]}: check who owns/registered a domain/IP"
+	echo "        ${cmds[2]}: dnsrecon time motherfucker"
+	echo "        ${cmds[3]}: Rape the search engines with harvester"
+	echo "        ${cmds[4]}: run nmap scan on a specified domain or IP"
+	echo "        ${cmds[5]}: that shit runs WP? Scan it!"
+	echo "        ${cmds[6]}: Cupp, generate custome password lists for bruteforce"
 	echo "        --help: display this menu"
 	run
 }
