@@ -1,7 +1,7 @@
 #!/bin/bash
 
 str=''
-cmds=(whois dnsrecon harvester nmap wpscan)
+cmds=(menu whois dnsrecon harvester nmap wpscan cupp)
 
 init()
 {
@@ -22,6 +22,35 @@ run()
     echo -e "[i] Available commands: ${cmds[@]}"
 	read str
 	nav $str	
+}
+menu_mod()
+{
+	echo "Select an option..."
+	echo #NewLine
+	echo "1) Fully Automated"
+	echo "2) Basic Automation"
+	echo "3) No Automation"
+	echo "4) Automated, but make it look like I'm working, the boss is around!"
+	echo "5) Impress my friends"
+	read option
+	if [[ $option == '1' ]]
+	    then
+	       	automated
+    elif [[ $option == '2' ]]
+		then
+		    basic
+	elif [[ $option == '3' ]]
+		then
+		    manual
+	elif [[ $option == '4' ]]
+		then
+		    lazy
+	elif [[ $option == '5' ]]
+		then
+		    leet
+    else
+        run
+	fi
 }
 help_mod()
 {
@@ -108,6 +137,44 @@ continue_wpscan()
 	run
 }
 
+cupp_mod()
+{
+	python arsenal/cupp-master/cupp.py
+	run
+}
+
+automated()
+{
+	echo "Automated"
+	run
+}
+basic()
+{
+	echo "Works"
+	run
+}
+manual()
+{
+	echo "Works"
+	run
+}
+lazy()
+{
+	echo "Works"
+	run
+}
+leet()
+{
+	echo "Enter IP"
+	read ip
+	echo "Connecting to $ip..."
+	echo "Enter Mod Security bypass"
+	read mod_sec
+	echo "System cracked...now decrypting full drive."
+	echo "Estimated time, 3 mins"
+	run
+}
+
 nav()
 {
 
@@ -115,19 +182,25 @@ nav()
 	then
 	    if [[ $@ == ${cmds[0]} ]]
 	        then
-	        	whois_mod
+	        	menu_mod
 	    elif [[ $@ == ${cmds[1]} ]]
 	        then
-	        	dnsrecon_mod
+	        	whois_mod
 	    elif [[ $@ == ${cmds[2]} ]]
 	        then
-	        	harvester_mod
+	        	dnsrecon_mod
 	    elif [[ $@ == ${cmds[3]} ]]
 	        then
-	        	nmap_mod
+	        	harvester_mod
 	    elif [[ $@ == ${cmds[4]} ]]
 	        then
+	        	nmap_mod
+	    elif [[ $@ == ${cmds[5]} ]]
+	        then
 	        	wpscan_mod
+	    elif [[ $@ == ${cmds[6]} ]]
+	        then
+	        	cupp_mod
 	    elif [[ $@ == '--help' ]]
 	        then
 	        	help_mod
