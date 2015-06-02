@@ -35,7 +35,9 @@ menu_mod()
 	read option
 	if [[ $option == '1' ]]
 	    then
-	       	automated
+	    	echo "Enter domain or IP..."
+	    	read domain
+	       	automated $domain
     elif [[ $option == '2' ]]
 		then
 		    basic
@@ -67,7 +69,7 @@ whois_mod()
 {
 	echo "Enter target..."
     read domain
-    whois $domin
+    whois $domain
 }
 dnsrecon_mod()
 {
