@@ -1,4 +1,0 @@
-# Nmap 6.47 scan initiated Tue Jun  2 09:44:42 2015 as: nmap -sV -oN blisedd.se -p 80 blisedd.se
-Failed to resolve "blisedd.se".
-WARNING: No targets were specified, so 0 hosts scanned.
-# Nmap done at Tue Jun  2 09:44:42 2015 -- 0 IP addresses (0 hosts up) scanned in 0.56 seconds

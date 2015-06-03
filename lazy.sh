@@ -18,8 +18,8 @@ init()
 }
 run() 
 {
-	echo -e "[i] Enter command or type --help"
-    echo -e "[i] Available commands: ${cmds[@]}"
+	echo -e "[i] Enter module name or type --help for details and menu to see the main menu again"
+    echo -e "[i] Available modules: ${cmds[@]}"
 	read str
 	nav $str	
 }
@@ -32,6 +32,8 @@ menu_mod()
 	echo "3) No Automation"
 	echo "4) Automated, but make it look like I'm working, the boss is around!"
 	echo "5) Impress my friends"
+	echo "6) Run a module on it's own"
+	echo #Newline
 	read option
 	if [[ $option == '1' ]]
 	    then
@@ -50,6 +52,9 @@ menu_mod()
 	elif [[ $option == '5' ]]
 		then
 		    leet
+	elif [[ $option == '6' ]]
+		then
+		    run
     else
         run
 	fi
@@ -75,9 +80,15 @@ help_mod()
 
 whois_mod()
 {
-	echo "Enter target..."
-    read domain
-    whois $domain
+	
+    if [[ $@ == '' ]]
+        then
+        	echo "Enter target..."
+    		read domain
+    		whois $domain
+        else
+			whois $@
+		fi
 }
 dnsrecon_mod()
 {
@@ -95,9 +106,14 @@ harvester_mod()
 }
 nmap_mod() 
 {
-		echo "Enter target..."
-     	read domain
-        nmap -sV -oN $domain -p 80 $domain
+		if [[ $@ == '' ]]
+        then
+        	echo "Enter domain:"
+        	read domain
+        	nmap -sV -oN $domain -p 80 $domain
+        else
+			nmap -sV -oN $domain -p 80 $@
+		fi
         clear
         echo "Analyzing nmap scan..."
 		echo -n "What service are you looking for: "
@@ -141,7 +157,7 @@ wpscan_mod()
 }
 continue_wpscan()
 {
-	/opt/wpscan/wpscan.rb -u $@
+	./wpscan.rb -u $@ | tee $@.txt
 	echo "Finished wp scan..."
 	clear
 	run
@@ -155,8 +171,11 @@ cupp_mod()
 
 automated()
 {
-	echo "Automated"
-	run
+	whois_mod $@
+	nmap_mod $@
+	wpscan_mod $@
+	dnsrecon_mod $@
+	harvester_mod $@
 }
 basic()
 {
@@ -226,4 +245,4 @@ nav()
 }
 
 init
-run
+menu_mod
