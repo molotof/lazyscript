@@ -85,16 +85,16 @@ whois_mod()
         then
         	echo "Enter target..."
     		read domain
-    		whois $domain
+    		whois $domain  | tee $domain_whois.txt
         else
-			whois $@
+			whois $@ | tee $@_whois.txt
 		fi
 }
 dnsrecon_mod()
 {
 	echo "Enter target..."
     read domain
-    ./dnsrecon.py -d $domain -t brt > domains.txt
+    ./dnsrecon.py -d $domain -t brt | tee $domain_dnsrecon.txt
     cat domains.txt
     run
 }
@@ -110,9 +110,9 @@ nmap_mod()
         then
         	echo "Enter domain:"
         	read domain
-        	nmap -sV -oN $domain -p 80 $domain
+        	nmap -sV -oN $domain -p 80 $domain  | tee $domain_nmap.txt
         else
-			nmap -sV -oN $domain -p 80 $@
+			nmap -sV -oN $domain -p 80 $@  | tee $domain_nmap.txt
 		fi
         clear
         echo "Analyzing nmap scan..."
