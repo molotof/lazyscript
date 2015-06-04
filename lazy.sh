@@ -102,7 +102,7 @@ harvester_mod()
 {
 	echo "Enter target..."
     read domain
-    theharvester -d $domain -b all
+    theharvester -d $domain -b all  | tee $domain_harvester.txt
 }
 nmap_mod() 
 {
