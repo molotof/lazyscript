@@ -196,11 +196,42 @@ leet()
 {
 	echo "Enter IP"
 	read ip
+	echo #Newline
 	echo "Connecting to $ip..."
+	echo #Newline
 	echo "Enter Mod Security bypass"
 	read mod_sec
-	echo "System cracked...now decrypting full drive."
-	echo "Estimated time, 3 mins"
+	sleep 4
+	echo "Attacking server with payload: $mod_sec"
+	sleep 2
+	echo "System access"
+	echo #Newline
+	echo "Escalating privilege..."
+	echo #Newline
+	sleep 4
+	echo "[i] now 'SYSTEM'"
+	echo #Newline
+	echo ">>> Password file found, contains hashes, extracting hashes..."
+	sleep 2
+	echo "[i] Estimated time, 20 seconds remaining..."
+	sleep 5
+	echo "[i] Estimated time, 15 seconds remaining..."
+	sleep 5
+	echo "[i] Estimated time, 10 seconds remaining..."
+	sleep 5
+	echo "[i] Estimated time, 5 seconds remaining..."
+	sleep 5
+	echo #Newline
+	echo ">>> Dumping hashes..."
+	sleep 5
+	cat 1337/1337.txt
+	echo #Newline
+	echo #Newline
+	echo ">>> Cracking hashes against wordlist..."
+	sleep 10
+	echo "[i] Password found:"
+	echo "[i] Server: 177.167.21.44 Username: root Password: Crypt0_33"
+	echo #Newline
 	run
 }
 
